@@ -1,7 +1,9 @@
-.view-stub
-{
-    width: 50%;
+.page {
+  width: 50%;
+  margin: 0 auto;
 }
+
+.view-stub {}
 
 .view-stub__input-block {
     margin-bottom: 10px;
