@@ -1,14 +1,14 @@
-var logging = function (message, object) {
+var logging = function( message, object ) {
 
-  var pageLog = document.querySelector('.log');
-  var newLogItem = document.createElement('div');
+  var pageLog = document.querySelector( '.log' );
+  var newLogItem = document.createElement( 'div' );
 
-  if (object) {
-    newLogItem.innerHTML = message + ': ' + JSON.stringify(object);
-    console.log(message, object);
+  if ( object ) {
+    newLogItem.innerHTML = message + ': ' + JSON.stringify( object );
+    console.log( message, object );
   } else {
     newLogItem.innerHTML = message;
-    console.log(message);
+    console.log( message );
   }
-  pageLog.appendChild(newLogItem);
+  pageLog.appendChild( newLogItem );
 };
