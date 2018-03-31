@@ -1,0 +1,40 @@
+{
+  "name": "Flux-fraimework-sample",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Homework for SHRI-2018",
+  "author": "Alina Vanieva",
+  "scripts": {
+    "start": "npm run build && gulp serve",
+    "lint:edit": "editorconfig-cli fix",
+    "lint:scss": "stylelint \"source/sass/**/*.scss\" --syntax scss",
+    "lint:js": "node_modules/.bin/eslint ./ --fix --ignore-path .gitignore",
+    "lint": "npm run lint:edit && npm run lint:scss && npm run lint:js",
+    "build": "gulp build"
+  },
+  "devDependencies": {
+    "@htmlacademy/editorconfig-cli": "1.x",
+    "browser-sync": "2.23.x",
+    "del": "^3.0.0",
+    "eslint": "^4.19.1",
+    "eslint-plugin-import": "^2.9.0",
+    "gulp": "3.9.x",
+    "gulp-concat": "^2.6.1",
+    "gulp-plumber": "1.2.x",
+    "gulp-sourcemaps": "^2.6.4",
+    "run-sequence": "^2.2.1",
+    "stylelint": "8.4.x",
+    "stylelint-config-htmlacademy": "0.1.x",
+    "travis": "^0.1.1"
+  },
+  "editorconfig-cli": [
+    "*.json",
+    "*.js",
+    "source/*.html",
+    "source/js/**/*.js",
+    "source/css/**/*.css"
+  ],
+  "engines": {
+    "node": "8.9"
+  }
+}
