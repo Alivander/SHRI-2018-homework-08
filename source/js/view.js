@@ -36,10 +36,10 @@
     var newAction = new Action( 'data-input', value );
     logging( 'Создание нового Action в View', newAction );
 
-    render.input();
-
     logging( 'Передача нового Action из View в Dispatcher' );
     dispatcher.dispatch( newAction );
+
+    render.input();
   });
 
   serverReport.addEventListener('change', function( evt ) {
@@ -49,17 +49,5 @@
     logging('View перерисовывает блок с новыми данными');
     render.report( evt.detail );
   });
-
-
-
-
-
-// componentDidMount: function() {
-//     store.bind( 'change', this.listChanged );
-// },
-//
-// componentWillUnmount: function() {
-//     store.unbind( 'change', this.listChanged );
-// },
 
 })();
