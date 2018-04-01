@@ -10,7 +10,8 @@
     "lint:scss": "stylelint \"source/sass/**/*.scss\" --syntax scss",
     "lint:js": "node_modules/.bin/eslint ./ --fix --ignore-path .gitignore",
     "lint": "npm run lint:edit && npm run lint:scss && npm run lint:js",
-    "build": "gulp build"
+    "build": "gulp build",
+    "deploy": "gh-pages -d build"
   },
   "devDependencies": {
     "@htmlacademy/editorconfig-cli": "1.x",
@@ -18,6 +19,7 @@
     "del": "^3.0.0",
     "eslint": "^4.19.1",
     "eslint-plugin-import": "^2.9.0",
+    "gh-pages": "^1.1.0",
     "gulp": "3.9.x",
     "gulp-concat": "^2.6.1",
     "gulp-plumber": "1.2.x",
