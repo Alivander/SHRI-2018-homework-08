@@ -4,7 +4,7 @@ var logging = function( message, object ) {
   var newLogItem = document.createElement( 'div' );
 
   if ( object ) {
-    newLogItem.innerHTML = message + ': ' + JSON.stringify( object );
+    newLogItem.textContent = message + ': ' + JSON.stringify( object );
     console.log( message, object );
   } else {
     newLogItem.innerHTML = message;
