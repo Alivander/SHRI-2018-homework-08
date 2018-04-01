@@ -42,11 +42,11 @@
     render.input();
   });
 
-  serverReport.addEventListener('change', function( evt ) {
+  serverReport.addEventListener( 'change', function( evt ) {
     evt.preventDefault();
-    logging('View реагирует на изменение');
+    logging( 'View реагирует на изменение' );
 
-    logging('View перерисовывает блок с новыми данными');
+    logging( 'View перерисовывает блок с новыми данными' );
     render.report( evt.detail );
   });
 

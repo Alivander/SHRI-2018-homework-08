@@ -14,28 +14,19 @@
 
   var handlerChange = {
     'input': function( action ) {
-      new Promise( function( resolve, reject ) {
-        logging('Store отправляет данные на сервер', action.data );
-        try {
-          var result = server.sendToServer( action.data );
-        } catch ( err ) {
-          reject( new Error( 'Ошибка при отправке данных серверу' ) );
-        };
-        resolve( result );
-      })
-      .then( function( result ) {
-        logging( 'Store запрашивает данные с сервера' );
-        if (result) {
+      logging( 'Store отправляет данные на сервер', action.data );
+      return server.sendToServer( action.data )
+        .then( function( result ) {
+          logging( 'Store запрашивает данные с сервера' );
           return server.queryToServer( 'report' );
-        }
-      })
-      .then( function ( report ) {
-        logging( 'Store вызывает событие изменения' );
-        createNewEvent( 'change', interfaceBlocks.serverLog, report );
-      })
-      .catch( function( err ) {
-        logging( err );
-      })
+        })
+        .then( function ( report ) {
+          logging( 'Store вызывает событие изменения' );
+          createNewEvent( 'change', interfaceBlocks.serverLog, report );
+        })
+        .catch( function( err ) {
+          logging( err );
+        })
     }
   }
 

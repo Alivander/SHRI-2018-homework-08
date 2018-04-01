@@ -3,6 +3,6 @@ var dispatcher = {
     logging( 'Получение Dispatcher нового Action' );
 
     logging( 'Вызов обработчика Actione из Store' );
-    store.handlerAction(action);
+    store.handlerAction( action );
   }
 };
