@@ -5,20 +5,6 @@
   var button = viewStub.querySelector( '.view-stub__apply' );
   var serverReport = viewStub.querySelector( '.view-stub__label' );
 
-  var interfaceBlocks = [ serverReport ];
-
-  button.addEventListener( 'click', function( evt ) {
-    evt.preventDefault();
-
-    var value = input.value;
-    input.value = '';
-    var newAction = new Action( 'data-input', value );
-    logging( 'Создание нового Action в View', newAction );
-
-    logging( 'Передача нового Action из View в Dispatcher' );
-    dispatcher.dispatch( newAction );
-  });
-
   function Action( name, data ) {
     this.name = name;
     this.data = data;
@@ -37,8 +23,24 @@
 
       serverReport.innerHTML = '';
       serverReport.appendChild( reportBlock );
+    },
+    input: function() {
+      input.value = '';
     }
   };
+
+  button.addEventListener( 'click', function( evt ) {
+    evt.preventDefault();
+
+    var value = input.value;
+    var newAction = new Action( 'data-input', value );
+    logging( 'Создание нового Action в View', newAction );
+
+    render.input();
+
+    logging( 'Передача нового Action из View в Dispatcher' );
+    dispatcher.dispatch( newAction );
+  });
 
   serverReport.addEventListener('change', function( evt ) {
     evt.preventDefault();
