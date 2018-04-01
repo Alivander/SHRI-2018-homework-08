@@ -5,7 +5,7 @@
 
   window.server = {
     sendToServer: function( data ) {
-      logging( 'Сервер получил данные от Store', data );
+      logging( 'Сервер принял данные от Store', data );
 
       if ( data ) {
         dataBase.report.push( data );

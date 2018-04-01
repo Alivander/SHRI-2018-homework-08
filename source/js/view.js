@@ -33,7 +33,7 @@
     evt.preventDefault();
 
     var value = input.value;
-    var newAction = new Action( 'data-input', value );
+    var newAction = new Action( 'input', value );
     logging( 'Создание нового Action в View', newAction );
 
     logging( 'Передача нового Action из View в Dispatcher' );
