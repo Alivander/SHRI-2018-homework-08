@@ -52,6 +52,6 @@ gulp.task('build', function(done) {
     'html',
     'style',
     'script',
-    done,
+    done
   );
 });
