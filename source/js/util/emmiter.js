@@ -25,6 +25,5 @@ var eventEmitter = {
         value();
       });
     }
-    return this;
   }
 };
