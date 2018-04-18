@@ -8,7 +8,7 @@ var Store = (function() {
       dataBase = base;
     })
     .catch( function( err ) {
-      consol.log( err );
+      console.error( err );
     });
 
   console.info( 'Store регистрирует callback в Dispatcher' );
@@ -18,39 +18,47 @@ var Store = (function() {
 
   function handlerAction( action ) {
     console.info( 'Store получил Action', action );
-    if ( action.data ) {
-      handlerData( action );
+    var instraction = reducer( action );
+    if ( instraction.data ) {
+
+      console.info( 'Store сохраняет данные во внутренней базе', action.data );
+      if (dataBase[ instraction.name ] !== undefined) {
+        dataBase[ instraction.name ].push( instraction.data );
+      } else {
+        dataBase[ instraction.name ] = [ instraction.data ];
+      }
+
+      if ( instraction.notServer ) {
+        console.info( 'Store сообщает что изменился' );
+        eventEmitter.emit('storeChanged');
+      } else {
+        console.info( 'Store отправляет данные на сервер', instraction.data );
+        server.sendToServer( action )
+          .then( function( result ) {
+            console.info( 'Store обрабатывает ответ сервера', result );
+            if (dataBase[ result.type ] !== undefined) {
+              dataBase[ result.type ].push( result.data );
+            } else {
+              dataBase[ result.type ] = [ result.data ];
+            }
+            return true;
+          })
+          .then( function( succesfully ) {
+            if ( succesfully ) {
+              console.info( 'Store сообщает что изменился' );
+              eventEmitter.emit('storeChanged');
+            }
+          })
+          .catch( function( err ) {
+            console.error( err );
+          });
+      }
+
+      console.log('dataBase', dataBase);
+
     } else {
       console.error( 'Action, полученный Store, содержит некоректные данные' );
     }
-  }
-
-  function handlerData( action ) {
-    console.info( 'Store сохраняет данные во внутренней базе', action.data );
-    if (!dataBase[ action.name ]) {
-      dataBase[ action.name ] = [];
-    }
-    dataBase[ action.name ].push( action.data );
-
-    console.info( 'Store отправляет данные на сервер', action.data );
-    server.sendToServer( action )
-      .then( function( result ) {
-        console.info( 'Store обрабатывает ответ сервера', result );
-        if (!dataBase[ result.type ]) {
-          dataBase[ result.type ] = [];
-        }
-        dataBase[ result.type ].push( result.data );
-        return true;
-      })
-      .then( function( succesfully ) {
-        if ( succesfully ) {
-          console.info( 'Store сообщает что изменился' );
-          eventEmitter.emit('storeChanged');
-        }
-      })
-      .catch( function( err ) {
-        console.error( err );
-      });
   }
 
   function getData( dataName ) {
