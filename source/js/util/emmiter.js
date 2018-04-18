@@ -1,29 +1,37 @@
-var eventEmitter = {
-  _events: {},
+var eventEmitter = ( function() {
+  var events = {};
 
-  on: function( event, handler ) {
-    var queue = this._events[event];
-    if (!queue) {
-      queue = [];
+  function on( eventName, handler ) {
+    console.info( 'eventEmitter регистрирует handler для события', eventName );
+    if (!events[ eventName ]) {
+      events[ eventName ] = [];
     }
-    queue.push( handler );
+    events[ eventName ].push( handler );
     return this;
-  },
+  };
 
-  off: function( event, handler ) {
-    var queue = this._events[event];
-    queue = queue.filter( function(value ) {
+  function off( eventName, handler ) {
+    console.info( 'eventEmitter удаляет handler для события', eventName )
+    events[ eventName ] = events[ eventName ].filter( function( value ) {
       return value !== handler;
     });
     return this;
-  },
+  };
 
-  emit: function( event ) {
-    var queue = this._events[event];
-    if ( queue ) {
-      queue.forEach( function( value ) {
-        value();
+  function emit( eventName ) {
+    console.info( 'eventEmitter генерирует событие', eventName )
+    if ( events[ eventName ] ) {
+      events[ eventName ].forEach( function( handler ) {
+        handler();
       });
+    } else {
+      console.log( 'eventEmitter не содержит обработчиков для этого события' );
     }
-  }
-};
+  };
+
+  return {
+    on: on,
+    off: off,
+    emit: emit
+  };
+})();
