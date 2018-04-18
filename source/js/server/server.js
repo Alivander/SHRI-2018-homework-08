@@ -1,16 +1,18 @@
 var server = (function() {
-  var dataBase = {};
+  var serverDataBase = {};
 
   function sendToServer( action ) {
     return new Promise( function( resolve, reject ) {
       if ( action.data ) {
-        if (!dataBase[ action.name ]) {
-          dataBase[ action.name ] = [];
+        if (serverDataBase[ action.name ] !== undefined) {
+          serverDataBase[ action.name ].push( action.data );
+        } else {
+          serverDataBase[ action.name ] = [ action.data ];
         }
-        dataBase[ action.name ].push( action.data );
-        resolve( {
+        console.log('serverDataBase', serverDataBase);
+        resolve({
           type: 'report',
-          data: 'Сервер получил данные: ' + action.data
+          data: ('Сервер получил данные: ' + action.data)
         });
       } else {
         reject( console.error( 'Ошибка в данных, отправленых серверу' ));
@@ -21,8 +23,8 @@ var server = (function() {
   function queryBaseToServer() {
     console.info( 'Отправка базы данных c сервера в Store' );
     return new Promise( function( resolve, reject ) {
-      if ( dataBase ) {
-        resolve( dataBase );
+      if ( serverDataBase ) {
+        resolve( serverDataBase );
       } else {
         reject( console.error( 'Отправка данных с сервера не удалась' ));
       }
