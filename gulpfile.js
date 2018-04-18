@@ -23,7 +23,12 @@ gulp.task('style', function() {
 });
 
 gulp.task('script', function() {
-  return gulp.src(['source/js/util/*.js','source/js/server/*.js','source/js/flux/*.js','source/js/app/*.js'])
+  return gulp.src([
+    'source/js/util/**/*.js',
+    'source/js/server/**/*.js',
+    'source/js/flux/**/*.js',
+    'source/js/app/**/*.js'
+    ])
     .pipe(plumber())
     .pipe(sourcemaps.init())
     .pipe(concat('script.js'))
