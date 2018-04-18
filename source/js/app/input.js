@@ -8,6 +8,7 @@
   button.addEventListener( 'click', function() {
     var value = input.value;
     input.value = '';
+    console.info('inputView генерирует новый Action');
     inputView.generateAction( value );
   });
 })();

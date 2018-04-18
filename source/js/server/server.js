@@ -13,18 +13,18 @@ var server = (function() {
           data: 'Сервер получил данные: ' + action.data
         });
       } else {
-        reject( logging( 'Ошибка в данных, отправленых серверу' ));
+        reject( console.error( 'Ошибка в данных, отправленых серверу' ));
       }
     })
   };
 
   function queryBaseToServer() {
-    logging( 'Отправка базы данных c сервера в Store' );
+    console.info( 'Отправка базы данных c сервера в Store' );
     return new Promise( function( resolve, reject ) {
       if ( dataBase ) {
         resolve( dataBase );
       } else {
-        reject( logging( 'Отправка данных с сервера не удалась' ));
+        reject( console.error( 'Отправка данных с сервера не удалась' ));
       }
     })
   }
